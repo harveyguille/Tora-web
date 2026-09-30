@@ -19,6 +19,15 @@ ENV RESOLUTION=800x600
 WORKDIR /app
 COPY ./TORA /app/TORA
 
-# Registrar dependencias ActiveX de VB6 e iniciar TORA en el autostart de LXDE
+# Script lanzador asegurando el directorio de trabajo de los archivos
+RUN printf '#!/bin/bash\ncd /app/TORA\nwine tora.exe\n' > /app/run-tora.sh && \
+    chmod +x /app/run-tora.sh
+
+# 1) Acceso directo visible en el escritorio
+RUN mkdir -p /root/Desktop && \
+    printf '[Desktop Entry]\nType=Application\nName=TORA\nExec=/app/run-tora.sh\nIcon=system-run\nTerminal=false\n' > /root/Desktop/TORA.desktop && \
+    chmod +x /root/Desktop/TORA.desktop
+
+# 2) Autostart para que abra apenas cargue LXDE
 RUN mkdir -p /root/.config/lxsession/LXDE && \
-    echo '@wine /app/TORA/tora.exe' >> /root/.config/lxsession/LXDE/autostart
+    echo '@/app/run-tora.sh' >> /root/.config/lxsession/LXDE/autostart

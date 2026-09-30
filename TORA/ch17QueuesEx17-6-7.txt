@@ -1,0 +1,11 @@
+6000
+5
+6
+1
+"Example 17.6-7"
+1
+"12.000000"
+"0.333333"
+"infinity"
+"infinity"
+"infinity"

@@ -1,0 +1,13 @@
+{
+  "name": "TORA Web",
+  "build": {
+    "dockerfile": "../Dockerfile"
+  },
+  "forwardPorts": [80],
+  "portsAttributes": {
+    "80": {
+      "label": "TORA",
+      "onAutoForward": "openBrowser"
+    }
+  }
+}
